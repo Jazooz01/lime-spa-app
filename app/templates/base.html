@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lime Spa Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+    
+    <nav class="bg-emerald-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3 hover:opacity-90 transition">
+                <img src="{{ url_for('static', filename='logo.png') }}" class="h-10 w-10 bg-white rounded-full p-1 shadow-sm" alt="Logo">
+                <div>
+                    <h1 class="font-bold tracking-widest text-lg uppercase leading-none">Lime Spa</h1>
+                    <p class="text-[10px] text-emerald-200 tracking-wider">MEMBERSHIP SYSTEM</p>
+                </div>
+            </a>
+
+            {% if session.get('user_role') %}
+            <div class="flex items-center gap-3">
+                <span class="text-xs bg-emerald-800 px-3 py-1.5 rounded-full hidden sm:flex items-center border border-emerald-700 shadow-sm">
+                    <i class="fas fa-store mr-1.5 text-emerald-300"></i> {{ session.get('branch') }}
+                </span>
+
+                {% if session.get('user_role') == 'admin' %}
+                <a href="{{ url_for('admin.settings') }}" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition flex items-center shadow-sm border border-slate-600">
+                    <i class="fas fa-cog sm:mr-1"></i> <span class="hidden sm:inline">Settings</span>
+                </a>
+                {% endif %}
+
+                <a href="{{ url_for('auth.logout') }}" class="text-xs bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded transition flex items-center shadow-sm border border-red-500">
+                    <span class="hidden sm:inline mr-1">Logout</span> <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full p-4 pb-12">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-6 space-y-2">
+                {% for category, message in messages %}
+                <div class="p-4 rounded-lg text-white shadow-md flex items-center gap-3 animate-[fadeIn_0.3s_ease-out]
+                    {{ 'bg-red-500' if category == 'error' else 'bg-emerald-600' }}">
+                    <i class="fas {{ 'fa-exclamation-circle' if category == 'error' else 'fa-check-circle' }} text-lg"></i>
+                    <span class="font-medium text-sm">{{ message }}</span>
+                </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-auto">
+        <div class="max-w-4xl mx-auto py-6 px-4 text-center">
+            <p class="text-slate-400 text-xs">
+                &copy; 2026 Lime Spa Membership System • 
+                <span class="text-slate-300">v3.0.0 (Python 3.14)</span>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

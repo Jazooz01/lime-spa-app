@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto text-center pt-10">
+    
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 mb-8 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-emerald-800"></div>
+        
+        <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+            <i class="fas fa-qrcode text-4xl text-emerald-800"></i>
+            <div class="absolute inset-0 border-4 border-emerald-200 rounded-full animate-ping opacity-20"></div>
+        </div>
+
+        <h1 class="text-2xl font-bold text-slate-800 mb-2">Ready to Redeem</h1>
+        <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+            Use your phone's <strong>Native Camera</strong> or <strong>Google Lens</strong> to scan the member's card.
+        </p>
+
+        <div class="flex justify-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
+            <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+                <i class="fab fa-apple text-lg"></i> iOS Camera
+            </div>
+            <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+                <i class="fab fa-google text-lg"></i> Google Lens
+            </div>
+        </div>
+    </div>
+
+    <div class="border-t border-slate-200 pt-8">
+        <div class="flex items-center justify-between mb-4 px-2">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Manual Entry</p>
+            <span class="text-[10px] bg-slate-100 text-slate-400 px-2 py-1 rounded">Backup Option</span>
+        </div>
+        
+        <div class="flex gap-2 relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-keyboard text-slate-300"></i>
+            </div>
+            <input id="manualInput" type="text" placeholder="Enter Member ID..." 
+                   class="w-full pl-10 p-4 border rounded-xl text-lg font-mono uppercase focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none shadow-sm transition">
+            
+            <button onclick="goToScan()" 
+                    class="bg-slate-800 hover:bg-slate-900 text-white px-6 rounded-xl font-bold shadow-lg transition active:scale-95">
+                GO
+            </button>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-2 text-left pl-2">Example ID: A1B2C3</p>
+    </div>
+
+</div>
+
+<script>
+    function goToScan() {
+        const id = document.getElementById('manualInput').value.trim();
+        if(id) {
+            window.location.href = "/staff/scan/" + id;
+        } else {
+            // Shake animation for error
+            const input = document.getElementById('manualInput');
+            input.classList.add('ring-2', 'ring-red-500', 'bg-red-50');
+            setTimeout(() => {
+                input.classList.remove('ring-2', 'ring-red-500', 'bg-red-50');
+            }, 500);
+        }
+    }
+
+    // Allow Enter key to submit
+    document.getElementById("manualInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            goToScan();
+        }
+    });
+</script>
+{% endblock %}

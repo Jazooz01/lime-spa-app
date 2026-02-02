@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <a href="{{ url_for('admin.dashboard') }}" class="text-slate-500 mb-4 inline-block"><i class="fas fa-arrow-left"></i> Cancel</a>
+    <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100">
+        <h2 class="text-2xl font-bold text-emerald-900 mb-6">Register New Member</h2>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
+                <input name="name" required class="w-full p-3 border rounded-lg">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Phone</label>
+                <input name="phone" required class="w-full p-3 border rounded-lg">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Expiry Date</label>
+                <input name="expiry" type="date" required class="w-full p-3 border rounded-lg">
+            </div>
+            
+            <div class="grid grid-cols-3 gap-3 pt-4">
+                <div>
+                    <label class="block text-xs font-bold text-center mb-1">Signature</label>
+                    <input name="signature" type="number" value="0" class="w-full p-2 border rounded text-center">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-center mb-1">Aroma</label>
+                    <input name="aroma" type="number" value="0" class="w-full p-2 border rounded text-center">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-center mb-1">Swedish</label>
+                    <input name="swedish" type="number" value="0" class="w-full p-2 border rounded text-center">
+                </div>
+            </div>
+
+            <button class="w-full bg-emerald-600 text-white py-3 rounded-lg font-bold mt-6 hover:bg-emerald-700">
+                Create & Generate Card
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

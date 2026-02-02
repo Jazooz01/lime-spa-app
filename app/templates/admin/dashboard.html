@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-slate-800"><i class="fas fa-users-cog mr-2"></i>Admin Dashboard</h2>
+    <a href="{{ url_for('admin.new_member') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg shadow font-bold">
+        <i class="fas fa-plus mr-2"></i>New Member
+    </a>
+</div>
+
+<form class="mb-6 relative">
+    <i class="fas fa-search absolute left-4 top-3.5 text-slate-400"></i>
+    <input name="q" placeholder="Search by name or ID..." class="w-full pl-10 p-3 rounded-xl border shadow-sm focus:ring-2 focus:ring-emerald-500 outline-none" value="{{ request.args.get('q', '') }}">
+</form>
+
+<div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <table class="w-full text-left">
+        <thead class="bg-slate-50 border-b text-xs uppercase text-slate-500">
+            <tr>
+                <th class="p-4">Member Name</th>
+                <th class="p-4">ID</th>
+                <th class="p-4 text-center">Sessions Left</th>
+                <th class="p-4 text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y text-sm">
+            {% for m in members %}
+            <tr class="hover:bg-slate-50 transition group">
+                <td class="p-4 font-bold text-slate-700">
+                    {{ m.name }}<br>
+                    <span class="text-xs text-slate-400 font-normal">{{ m.phone }}</span>
+                </td>
+                <td class="p-4 font-mono text-emerald-700">{{ m.id }}</td>
+                <td class="p-4 text-center">
+                    <span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full text-xs font-bold">
+                        {{ m.signature + m.aroma + m.swedish }}
+                    </span>
+                </td>
+                <td class="p-4 text-right">
+                    <a href="{{ url_for('admin.member_detail', mid=m.id) }}" class="text-emerald-600 hover:text-emerald-800 font-bold text-xs border border-emerald-200 px-3 py-1 rounded hover:bg-emerald-50">
+                        Manage <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="p-8 text-center text-slate-400">No members found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

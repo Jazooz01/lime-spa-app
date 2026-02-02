@@ -1,0 +1,6 @@
+__pycache__/
+venv/
+.env
+*.db
+app/static/cards/*
+app/static/logo.png

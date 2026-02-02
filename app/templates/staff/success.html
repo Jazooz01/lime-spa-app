@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto pt-10 text-center">
+    
+    <div class="bg-emerald-600 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+        
+        <i class="fas fa-check-circle text-6xl mb-4 animate-bounce"></i>
+        <h1 class="text-3xl font-bold mb-2">Success!</h1>
+        <p class="text-emerald-100 text-lg">Session Redeemed</p>
+        
+        <div class="mt-6 bg-emerald-800/50 p-4 rounded-xl backdrop-blur-sm border border-emerald-500/30">
+            <div class="text-sm opacity-75 uppercase tracking-wider">Member</div>
+            <div class="font-bold text-xl mb-3">{{ member.name }}</div>
+            
+            <div class="text-sm opacity-75 uppercase tracking-wider">Service</div>
+            <div class="font-bold text-xl capitalize">{{ service }} Therapy</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-6">
+        <a href="{{ url_for('staff.home') }}" class="bg-white text-slate-700 py-4 rounded-xl shadow font-bold hover:bg-slate-50 border transition">
+            <i class="fas fa-home mr-2"></i>Home
+        </a>
+        <a href="{{ url_for('staff.scan', mid=member.id) }}" class="bg-slate-800 text-white py-4 rounded-xl shadow font-bold hover:bg-slate-900 transition">
+            Scan Again <i class="fas fa-redo ml-2"></i>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <a href="{{ url_for('admin.member_detail', mid=history.member_id) }}" class="text-slate-500 hover:text-emerald-600 mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-1"></i> Back to Member
+    </a>
+
+    <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-slate-800">Edit Log Entry</h2>
+            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">#{{ history.id }}</span>
+        </div>
+
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Service Type (Locked)</label>
+                <input value="{{ history.service }}" disabled class="w-full p-3 border rounded-lg bg-slate-50 text-slate-400 cursor-not-allowed">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Therapist</label>
+                <input name="therapist" value="{{ history.therapist }}" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Branch</label>
+                <select name="branch" class="w-full p-3 border rounded-lg bg-white">
+                    <option value="{{ history.branch }}" selected>{{ history.branch }} (Current)</option>
+                    <option value="Central HQ">Central HQ</option>
+                    <option value="Downtown">Downtown</option>
+                    <option value="Airport Wing">Airport Wing</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Timestamp</label>
+                <input name="timestamp" value="{{ history.timestamp }}" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                <p class="text-[10px] text-slate-400 mt-1">Format: YYYY-MM-DD HH:MM:SS</p>
+            </div>
+
+            <div class="pt-4 flex gap-3">
+                <button type="submit" class="flex-1 bg-emerald-800 hover:bg-emerald-900 text-white py-3 rounded-lg font-bold shadow transition">
+                    Save Changes
+                </button>
+                <a href="{{ url_for('admin.member_detail', mid=history.member_id) }}" class="flex-1 bg-white border border-slate-300 text-slate-600 py-3 rounded-lg font-bold text-center hover:bg-slate-50">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
